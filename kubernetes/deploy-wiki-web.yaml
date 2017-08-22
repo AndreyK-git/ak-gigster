@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: wiki-web
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: wiki-web
+    spec:
+      securityContext:
+        fsGroup: 1000
+      containers:
+      - volumeMounts:
+        - mountPath: /var/www/data/
+          name: vol-wiki-web
+        name: wiki-web
+        image: aykumanov/mediawiki
+        ports:
+        - containerPort: 80
+          name: web-port
+      volumes:
+      - name: vol-wiki-web
+        persistentVolumeClaim:
+          claimName: vol-wiki-claim

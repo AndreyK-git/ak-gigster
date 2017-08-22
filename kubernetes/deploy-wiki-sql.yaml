@@ -1,0 +1,45 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: wiki-sql
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        appdb: wiki-sql
+    spec:
+      containers:
+      - name: wiki-sql
+        image: mariadb:latest
+        ports:
+          - containerPort: 3306
+            name: mysql-port
+        volumeMounts:
+          - mountPath: "/var/lib/mysql"
+            name: vol-wiki-sql
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: secrets-wiki
+                key: rootpassword
+          - name: MYSQL_DATABASE
+            valueFrom:
+              secretKeyRef:
+                name: secrets-wiki
+                key: sql-db
+          - name: MYSQL_USER
+            valueFrom:
+              secretKeyRef:
+                name: secrets-wiki
+                key: sql-user
+          - name: MYSQL_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: secrets-wiki
+                key: sql-psword
+      volumes:
+      - name: vol-wiki-sql
+        persistentVolumeClaim:
+          claimName: vol-wiki-claim
