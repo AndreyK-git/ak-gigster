@@ -13,7 +13,7 @@ kubectl create -f svc-wiki.yaml
 kubectl create -f deploy-wiki-sql.yaml
 kubectl create -f deploy-wiki-web.yaml
 ```
-3) Verify everything was created as expected
+3) Verify everything was created as expected.
 ```
 kubectl describe deployments
 ```
@@ -31,14 +31,11 @@ kubectl cp /Users/andrey.kumanov/Downloads/LocalSettings.php [wiki-web_pod_name]
 
 6) Install visibility and monitoring using heapster, grafana, and influxdb
 ```
-cd monitor
-kubectl create -f mtr-grafana.yaml
-kubectl create -f mtr-heapster.yaml
-kubectl create -f mtr-influxdb.yaml
-kubectl create -f mtr-heapster-rbac.yaml
+kubectl create -f monitor/
 ```
 7) Verify services are up and running
 ```
+kubectl get pods --namespace=kube-system
 kubectl get services --namespace=kube-system
 ```
 8) Login to grafana by pointing browser to kubernetes node, followed by port listed from the services output in previous step.
@@ -48,5 +45,5 @@ Username: admin
 Password: admin
 ```
 10) Left-click on the grafana icon again and left-click on "Data Sources". In the middle there should be an influxdb-datasource box, left-click on it
-11) A pre-populated form will pop up, scroll down and select "Save & Test"
+11) A pre-populated form will pop up, scroll down and select "Save & Test" (it may take a few minutes after creating the deployments before influxdb is ready to be paired with grafana)
 12) Return to the grafana dashboards and select "Cluster" or "Pods" to see the metrics as pods get created or destroyed
