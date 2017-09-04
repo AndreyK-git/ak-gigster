@@ -28,3 +28,23 @@ Database password: wikiuser
 ```
 kubectl cp /Users/andrey.kumanov/Downloads/LocalSettings.php [wiki-web_pod_name]:/var/www/data/LocalSettings.php
 ```
+### Optional - istall cluster monitoring
+
+6) Install visibility and monitoring using heapster, grafana, and influxdb
+```
+kubectl create -f monitor/
+```
+7) Verify services are up and running
+```
+kubectl get pods --namespace=kube-system
+kubectl get services --namespace=kube-system
+```
+8) Login to grafana by pointing browser to kubernetes node, followed by port listed from the services output in previous step.
+9) At the top left left-click on the grafana icon and left-click "Sign In"
+```
+Username: admin
+Password: admin
+```
+10) Left-click on the grafana icon again and left-click on "Data Sources". In the middle there should be an influxdb datasource box, left-click on it
+11) A pre-populated form will pop up, scroll down and select "Save & Test" (it may take a few minutes after creating the deployments before influxdb is ready to be paired with grafana)
+12) Return to the grafana dashboards and select "Cluster" or "Pods" to see the metrics as pods get created or destroyed
