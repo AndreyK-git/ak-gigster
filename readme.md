@@ -28,7 +28,7 @@ Database password: wikiuser
 ```
 kubectl cp /Users/andrey.kumanov/Downloads/LocalSettings.php [wiki-web_pod_name]:/var/www/data/LocalSettings.php
 ```
-### Optional - istall cluster monitoring
+### Optional - install cluster monitoring
 
 6) Install visibility and monitoring using heapster, grafana, and influxdb
 ```
