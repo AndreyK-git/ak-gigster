@@ -2,8 +2,8 @@
 
 1) Clone repo and access directory with kubernetes files
 ```
-git clone https://github.com/AndreyK-git/ak-gigster.git
-cd ak-gigster/kubernetes
+git clone https://github.com/AndreyK-git/k8-mediawiki.git
+cd k8-mediawiki/kubernetes
 ```
 2) Using kubectl and the yaml files, create the kubernetes secrets, volumes, services, and deployments
 ```
